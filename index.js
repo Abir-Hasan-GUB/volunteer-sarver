@@ -4,7 +4,6 @@ const password = 'Volunteer-Network';
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -15,15 +14,13 @@ app.get('/', (req, res) =>{
     res.send("Hello I am here!");
 })
 
-
-
 //DB Connection
 
 const uri = "mongodb+srv://Volunteer-Network:Volunteer-Network@cluster0.19f5u.mongodb.net/volunteer-network?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true , useUnifiedTopology: true});
 client.connect(err => {
   const collection = client.db("volunteer-network").collection("volunteerActivity");
-  const infoOne = {name:"allVolunteerSarvice", sarviceName: "Man Is Mortal",img: 'https://i.imgur.com/evHc3HO.png'};
+  // const infoOne = {name:"allVolunteerSarvice", sarviceName: "Man Is Mortal",img: 'https://i.imgur.com/evHc3HO.png'};
   // collection.insertOne(infoOne)
   // .then(result =>{
   //     console.log("One Product Added");
@@ -47,7 +44,11 @@ app.get('/allRegistration', (req, res)=>{
     res.send(documents)
   })
 })
-  
+  //Delete an activity
+app.delete('/delete/:id', (req, res)=>{
+  console.log(req.params.id)
+})
+    
 //display all volunteer sarvicees
 app.get('/allSarvice', (req, res)=>{
   collection.find({name: req.query.name})
@@ -55,7 +56,7 @@ app.get('/allSarvice', (req, res)=>{
     res.send(documents)
   })
 })
-    
+
 // add data to admin panel
 app.post('/addEvent', (req, res)=> {
   const addEvent = req.body;
@@ -67,6 +68,7 @@ app.post('/addEvent', (req, res)=> {
 
 
   })
+
   console.log("\nYEAA...Database Connected !!\n")
 //   client.close();
 
