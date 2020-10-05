@@ -4,6 +4,9 @@ const password = 'Volunteer-Network';
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const ObjectId = require('mongodb').ObjectId;
+require('dotenv').config()
+console.log(process.env.DB_USER)
+const port = 5000;
 
 const app = express();
 app.use(cors());
@@ -17,7 +20,7 @@ app.get('/', (req, res) => {
 
 //DB Connection
 
-const uri = "mongodb+srv://Volunteer-Network:Volunteer-Network@cluster0.19f5u.mongodb.net/volunteer-network?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.19f5u.mongodb.net/volunteer-network?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const collection = client.db("volunteer-network").collection("volunteerActivity");
@@ -79,4 +82,4 @@ client.connect(err => {
 console.log("\nYEAA...Database Connected !!\n")
 //   client.close();
 
-app.listen(5000);
+app.listen(port || process.env.PORT);
