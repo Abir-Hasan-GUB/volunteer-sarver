@@ -82,4 +82,4 @@ client.connect(err => {
 console.log("\nYEAA...Database Connected !!\n")
 //   client.close();
 
-app.listen(port || process.env.PORT);
+app.listen(process.env.PORT || port);
