@@ -66,6 +66,13 @@ app.post('/addEvent', (req, res)=> {
   })
 })
 
+//show all register users
+app.get('/registerUser', (req, res)=>{
+  collection.find({email: req.query.email})
+  .toArray((err,documents)=>{
+    res.send(documents)
+  })
+})
 
   })
 
