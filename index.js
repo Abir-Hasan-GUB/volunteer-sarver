@@ -3,6 +3,7 @@ const MongoClient = require('mongodb').MongoClient;
 const password = 'Volunteer-Network';
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const ObjectId = require('mongodb').ObjectId;
 
 const app = express();
 app.use(cors());
@@ -46,7 +47,12 @@ app.get('/allRegistration', (req, res)=>{
 })
   //Delete an activity
 app.delete('/delete/:id', (req, res)=>{
-  console.log(req.params.id)
+  // console.log(req.params.id)
+  collection.deleteOne({_id : ObjectId(req.params.id)})
+  .then(result =>{
+    console.log("Delete one successfully")
+   res.send(result.deletedCount > 0)
+  })
 })
     
 //display all volunteer sarvicees
